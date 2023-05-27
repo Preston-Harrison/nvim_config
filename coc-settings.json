@@ -2,5 +2,6 @@
 	"typescript.preferences.importModuleSpecifier": "relative",
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualText": true,
-	"diagnostic.virtualTextCurrentLineOnly": false
+	"diagnostic.virtualTextCurrentLineOnly": false,
+	"inlayHint.enable": false
 }

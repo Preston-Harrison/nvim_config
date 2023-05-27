@@ -1,3 +1,5 @@
+nnoremap <SPACE> <Nop>
+let mapleader = " "
 call plug#begin()
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -6,6 +8,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 call plug#end()
 
 syntax on
@@ -23,24 +26,6 @@ set encoding=UTF-8
 let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
 set termguicolors
-
-" set cc=80
-" hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-
-" Open NERDTree on open
-autocmd VimEnter * NERDTree
-" Show NERDTree hidden files
-let NERDTreeShowHidden=1
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Exit NERDTree if it is the only window remaining in any tab.
-autocmd BufEnter * if tabpagenr('$') > 1 && !len(filter(tabpagebuflist(), 'getbufvar(v:val,"&ft") != "nerdtree"')) | tabclose | endif
-" enable line numbers
-let NERDTreeShowLineNumbers=1
-" make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
 
 " coc.nvim settings
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<C-g>u\<TAB>"
@@ -70,42 +55,59 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Remap Ctrl+W to Alt + Space
-:nnoremap <M-Space> <C-w>
+" Remap window moving
+nmap <C-h> <C-w>h
+nmap <C-k> <C-w>k
+nmap <C-j> <C-w>j
+nmap <C-l> <C-w>l
 
 " Open terminal in new tab
 nmap <leader>p :tabnew<CR>:term<CR>i
 tnoremap <ESC><ESC> <C-\><C-N>
 
-" Code actions for \a
+" Code actions for
 nmap <leader>a  <Plug>(coc-codeaction-selected)<CR>
 
 " Quick jump to next error
 nmap <leader>n <Plug>(coc-diagnostic-next-error)
 nmap <leader>N <Plug>(coc-diagnostic-prev-error)
 
+nmap <A-j> :ToggleTerm size=40 direction=float<CR>
+tmap <A-j> <Esc><Esc>:ToggleTerm<CR>
+
 lua << EOF
-require("nvim-treesitter.configs").setup({
+require("toggleterm").setup{
+	close_on_exit = false,
+}
+require("nvim-treesitter.configs").setup{
     ensure_installed = { "javascript", "typescript", "lua", "vim", "json", "html", "rust", "tsx", "comment" },
     sync_install = false,
     auto_install = true,
     highlight = {
         enable = true,
     },
-})
-require("lualine").setup{
-	options = { theme = 'gruvbox' }
 }
-require("nvim-tree").setup({
+require("lualine").setup{
+	options = { theme = 'auto' }
+}
+require("nvim-tree").setup{
   sort_by = "case_sensitive",
   view = {
     width = 30,
   },
   renderer = {
-    group_empty = true,
+	group_empty = true,
   },
   filters = {
-    dotfiles = true,
+	dotfiles = true,
   },
-})
+  git = {
+	ignore = true,
+  }
+}
 EOF
+
+" Maps open in new tab to t
+nmap t <C-t>
+nnoremap <A-h> :NvimTreeToggle<CR>
+nnoremap <A-r> :NvimTreeRefresh<CR>
