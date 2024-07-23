@@ -1,0 +1,15 @@
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+require('dapui').setup()
+
+vim.api.nvim_set_keymap('n', '<leader>bb', "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bc', "<cmd>lua require'dap'.continue()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bo', "<cmd>lua require'dap'.step_over()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bi', "<cmd>lua require'dap'.step_into()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bu', "<cmd>lua require'dap'.step_out()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>br', "<cmd>lua require'dap'.repl.open()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bd', "<cmd>lua require'dap'.disconnect(); require'dap'.stop(); require'dap'.repl.close()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>be', "<cmd>lua require'dap.ui.widgets'.hover()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bs', "<cmd>lua require'dap.ui.widgets'.scopes()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>bp', "<cmd>lua require'dap'.pause.toggle()<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<leader>bu', "<cmd>lua require'dapui'.toggle()<CR>", { noremap = true, silent = true })
