@@ -25,7 +25,14 @@ vim.lsp.config('gopls', {
 -- Kotlin: kotlin-language-server
 -- Requires: brew install kotlin-language-server
 vim.lsp.config('kotlin_language_server', {
-  root_markers = { "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", ".git" },
+  cmd = { 'kotlin-language-server' },
+  filetypes = { "kotlin" },
+  root_markers = { "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", "pom.xml" },
+  init_options = {
+    -- Points the server's cache at the project root rather than the home directory.
+    -- This gives each project its own isolated index and speeds up subsequent startups.
+    storagePath = vim.fs.root(vim.fn.expand('%:p:h'), { "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts" }),
+  },
   settings = {
     kotlin = {
       compiler = {

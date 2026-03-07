@@ -16,11 +16,11 @@ vim.keymap.set({ "n", "v" }, "<leader>a", function()
   vim.lsp.buf.code_action()
 end, { noremap = true, silent = true, desc = "LSP code actions" })
 
-vim.keymap.set("n", "<leader>gd", function()
+vim.keymap.set("n", "gd", function()
   vim.lsp.buf.definition()
 end, { noremap = true, silent = true, desc = "Go to definition" })
 
-vim.keymap.set("n", "<leader>gr", function()
+vim.keymap.set("n", "gr", function()
   vim.lsp.buf.references()
 end, { noremap = true, silent = true, desc = "Go to references" })
 
