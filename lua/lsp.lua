@@ -48,8 +48,14 @@ vim.lsp.config('kotlin_language_server', {
 -- TypeScript/JavaScript: ts_ls
 -- Requires: npm install -g typescript-language-server typescript
 vim.lsp.config('ts_ls', {
-  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
+  cmd = { "typescript-language-server", "--stdio" },
+  settings = {
+    implicitProjectConfiguration = {
+      checkJs = true,
+    },
+  },
 })
 
 vim.lsp.enable({ 'gopls', 'kotlin_language_server', 'ts_ls' })
